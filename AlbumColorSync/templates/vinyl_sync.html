@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='color_container' id="vinyl_sync_id">
+    <div style="background-color: {{ album_color }}"></div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        var height = $('body').height() - $('#nav_bar').height();
+        $('#vinyl_sync_id').css('height', height);
+    });
+</script>
+{% endblock %}

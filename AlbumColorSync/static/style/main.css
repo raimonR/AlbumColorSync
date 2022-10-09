@@ -1,0 +1,293 @@
+@font-face {
+    font-family: urbanist-light;
+    src: url('Urbanist-Light.woff2') format('woff2');
+}
+@font-face {
+    font-family: urbanist-semibold;
+    src: url('Urbanist-SemiBold.woff2') format('woff2');
+}
+@font-face {
+    font-family: urbanist-regular;
+    src: url('Urbanist-Regular.woff2') format('woff2');
+}
+
+#main {
+    display: grid;
+    width: 100%;
+    /*height: 100vh;*/
+    /*align-content: start;*/
+    grid-template-columns: 1fr 1fr;
+    grid-template: [vinyl_list]     'a b'   [color_display]
+                   [update_list]    'c d'   [results];
+}
+
+body, html {
+    overflow-x: hidden;
+    background-color: #333333;
+    height: 100%;
+    font-family: urbanist-regular;
+    margin: 0px;
+    padding: 0px;
+    color: white;
+}
+
+#nav_bar {
+    box-shadow: 0px 2px 8px black;
+    font-family: urbanist-semibold;
+    background-color: #333333;
+}
+    #nav_bar ul {
+        list-style: none;
+        text-align: center;
+        margin: 0px;
+    }
+    #nav_bar li {
+        font-size: 1.75em;
+        display: inline-block;
+        margin: 0px 40px 0px 40px;
+    }
+    #nav_bar a {
+        line-height: 6vh;
+        text-decoration: none;
+        display: block;
+        padding: 10px 10px 10px 10px;
+        color: #D90368;
+        transition-duration: 0.5s;
+    }
+        #nav_bar a:hover {
+            transition-duration: 0.5s;
+            background: #D90368;
+            color: #333333;
+            height: inherit;
+        }
+        #nav_bar a.active {
+            background: #D90368;
+            color: #333333;
+        }
+
+#vinyl_list {
+    font-size: 1.3em;
+    text-align: left;
+    overflow-y: auto;
+    overflow-x: hidden;
+    direction: rtl;
+    height: 45vh;
+    padding: 15px;
+    margin: 10px 0px 10px;
+    width: auto;
+}
+    #vinyl_list ul {
+        list-style: none;
+        position: relative;
+        left: -35px;
+    }
+    #vinyl_list li {
+        margin: 10px 0;
+        white-space: nowrap;
+    }
+    #vinyl_list > * {
+        direction: ltr;
+    }
+
+#color_display {
+    border-radius: 5px;
+    box-shadow: 2px 2px 8px black;
+    background-color: #333333;
+    transition-duration: 0.5s;
+    display: flex;
+    margin: 10px;
+    padding: 20px;
+}
+    #color_display.cell {
+        padding: 20px;
+        background-color: #333333;
+    }
+    #color_display p {
+        text-align: center;
+        font-size: 2em;
+        margin: auto;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: black;
+    }
+
+#update_list {
+    box-sizing: border-box;
+    border-top: 3px solid #D90368;
+    display: block;
+    padding: 15px;
+    text-align: center;
+}
+    #update_list p {
+        color: #333333;
+        width: max-content;
+        font-size: 1.2em;
+        margin: auto;
+    }
+    #update_list label {
+        color: #333333;
+        width: 20vw;
+        padding: 5px;
+        display: block;
+        text-align: center;
+        margin: auto;
+        box-sizing: border-box;
+        color: black;
+    }
+
+#artist_name, #album_name {
+    color: #333333;
+    border: none;
+    border-bottom: 1.5px solid #AAAAAA;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 5px;
+    width: 20vw;
+    transition-duration: 0.5s;
+}
+    #album_name:focus, #artist_name:focus {
+        color: #333333;
+        border-bottom: 1.5px solid #333333;
+    }
+
+.submit {
+    border-radius: 5px;
+    color: white;
+    border: none;
+    background-color: #999999;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 10px;
+    width: 5vw;
+    transition-duration: 0.5s;
+    margin: auto;
+}
+    .submit:hover {
+        color: #333333;
+        background-color: #D90368;
+    }
+
+#album_choice {
+    width: max-content;
+}
+
+.center {
+    box-sizing: border-box;
+    display: block;
+    padding: 30px;
+    width: 100vw;
+    text-align: center;
+    color: #333333;
+}
+
+.form_container {
+    box-sizing: border-box;
+    display: block;
+    text-align: center;
+    box-shadow: 2px 2px 8px black;
+    border-radius: 5px;
+    margin: auto;
+    width: max-content;
+    padding: 15px;
+    background-color: white;
+}
+    .form_container > p {
+        color: #333333;
+        width: max-content;
+        color: black;
+        font-size: 1.5em;
+        margin: auto;
+        display: block;
+    }
+    .form_container label {
+        color: #333333;
+        width: max-content;
+        padding: 5px;
+        display: block;
+        text-align: center;
+        margin: auto;
+        box-sizing: border-box;
+    }
+
+.color_container {
+    display: flex;
+}
+    .color_container > div {
+        flex: 1;
+        margin: 20px;
+        box-shadow: 2px 2px 8px black;
+        border-radius: 5px;
+    }
+
+.columns {
+    display: flex;
+    width: 50%;
+    float: left;
+    align-items: center;
+}
+
+.album_select {
+    border: 1.5px solid #AAAAAA;
+    padding: 5px;
+}
+
+#spotify_control_bar {
+    display: flex;
+    width: max-content;
+    margin: auto;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 2px 2px 8px black;
+    height: 8vh;
+    padding: 0px 10px;
+}
+    #spotify_control_bar button {
+        border: none;
+        background-color: white;
+        color: #999999;
+        flex: 1;
+        text-align: center;
+        transition-duration: 0.5s;
+        line-height: 8vh;
+        font-size: 1.75em;
+    }
+    #spotify_control_bar button:hover {
+        color: #D90368;
+    }
+
+#results_container {
+    box-sizing: border-box;
+    border-top: 3px solid #D90368;
+    padding: 15px;
+    text-align: center;
+}
+
+#results {
+    box-sizing: border-box;
+    text-align: center;
+    box-shadow: 2px 2px 8px black;
+    border-radius: 5px;
+    margin: auto;
+    width: max-content;
+    padding: 15px;
+    background-color: white;
+}
+    #results p {
+        color: #333333;
+        width: max-content;
+        font-size: 1.2em;
+        margin: auto;
+    }
+
+.album_art_results {
+    color: #333333;
+    align-items: center;
+    display: flex;
+    padding: 5px;
+}
+    .album_art_results img {
+        display: inline;
+
+    }
+    .album_art_results .radio {
+        display: inline;
+    }

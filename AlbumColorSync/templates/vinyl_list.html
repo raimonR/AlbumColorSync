@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% set active_page = 'vinyl' %}
+
+{% block content %}
+<section id='main'>
+    <div id='vinyl_list'>
+        <ul>
+        {% for row in vinyls %}
+            <li id='{{ row[0] }}'>{{ row[2] }}{{ ' - ' }}{{ row[3] }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    <div id='color_display'><p>Hover over album to see its color.</p></div>
+    <div id='update_list'>
+        <div class='form_container'>
+            <p>Enter the name and artist of your album:</p>
+            <br>
+            <form method='POST' action='{{ url_for("vinyl") }}' id='album_search'>
+                {{ vinyl_update_form.hidden_tag() }}
+                {{ vinyl_update_form.album_name.label }}
+                {{ vinyl_update_form.album_name(placeholder="Magdalene") }}<br><br>
+                {{ vinyl_update_form.artist_name.label }}
+                {{ vinyl_update_form.artist_name(placeholder="FKA twigs") }}
+            </form>
+            <br>
+            <button type="submit" form="album_search" class="submit">
+                <i class='fas fa-search'></i>
+            </button>
+        </div>
+    </div>
+    <div id="results_container">
+        <div id="results">
+            <p>Choose the specific album you own:</p>
+            <p>(if multiple versions exist)</p>
+            <br>
+            <form method='POST' action='' id='album_submit'>
+            {{ spotify_album_form.hidden_tag() }}
+            {% if art is not none %}
+                {% for choices, album_art in zip(spotify_album_form.album_choices, art) %}
+                <div class='album_art_results'>
+                    <img src="{{ album_art }}" width="100" height="100">
+                    <div class="radio">
+                    {{ choices }}
+                    {{ choices.label }}
+                    </div>
+                </div>
+                {% endfor %}
+            {% endif %}
+            </form>
+            <br>
+            <button type="submit" form="album_submit" class="submit">
+                <i class="fas fa-check-circle"></i>
+            </button>
+        </div>
+    </div>
+
+    <script>
+    $(document).ready(function() {
+    {% for row in vinyls %}
+        $('{{ row[1] }}').hover(function() {
+                $('#color_display').css('background-color', '{{ row[-1] }}');
+            }, function() {
+                $('#color_display').css('background-color', '#333333'); }
+        );
+    {% endfor %}
+    });
+
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    function potential_albums() {
+        $.getJSON($SCRIPT_ROOT+"/_album_search",
+            function(data) {
+                $('#results').css('display', 'grid');
+            }
+        );
+    }
+    $('#album_search').on('submit', potential_albums());
+
+    $('#album_submit').on('submit', function() {
+        $('#results').css('display', 'none');
+    });
+    </script>
+</section>
+{% endblock %}

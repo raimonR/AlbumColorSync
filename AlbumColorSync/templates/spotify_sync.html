@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='color_container' id="spotify_sync">
+    <div id="spotify_container"></div>
+</div>
+
+<div id='spotify_control_bar'>
+    <form action="" method="post">
+        <button type="button" id="backward" value="backward">
+            <i class='fas fa-fast-backward'></i>
+        </button>
+        <button type="button" id="pause_play" value="pause_play">
+            <i class='fas fa-play-circle'></i>
+        </button>
+        <button type="button" id="forward" value="forward">
+            <i class='fas fa-fast-forward'></i>
+        </button>
+    </form>
+</div>
+
+<script>
+    $(document).ready(function() {
+        var height = $('body').height() - $('#nav_bar').height() - $('#spotify_control_bar').height() - 20;
+        $('#spotify_sync').css('height', height);
+    });
+
+    var new_color = ''
+    var new_id = ''
+    var is_playing = true
+    $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+    function update_color() {
+        $.getJSON($SCRIPT_ROOT+"/_spotify",
+            function(data) {
+                new_color = data.sync_color;
+                new_id = data.song_id;
+                is_playing = data.is_playing
+                $('#spotify_container').css('background-color', new_color);
+            });
+
+            setTimeout(update_color, 2300);
+    }
+    $(document).ready(update_color);
+
+    $('#backward').click(function() {
+        $.post('{{ url_for('spotify_controls') }}', { 'action': 'backward' } );
+    });
+    $('#pause_play').click(function() {
+        if(is_playing === true) {
+            $.post('{{ url_for('spotify_controls') }}', { 'action': 'pause' } );
+        } else if(is_playing === false) {
+            $.post('{{ url_for('spotify_controls') }}', { 'action': 'play' } );
+        }
+    });
+    $('#forward').click(function() {
+        $.post('{{ url_for('spotify_controls') }}', { 'action': 'forward' } );
+    });
+</script>
+{% endblock %}

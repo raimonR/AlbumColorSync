@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% set active_page = 'playback' %}
+
+{% block content %}
+<div class="columns">
+    <div class='center'>
+        <div class='form_container'>
+            <p>Choose album for vinyl playback:</p>
+            <br>
+            <form method='POST' action='' id="vinyl_select">
+                {{ form.hidden_tag() }}
+                {{ form.album_choice.label }}
+                {{ form.album_choice(class_='album_select') }}<br><br>
+            </form>
+            <button type="submit" form="vinyl_select" class="submit">
+                <i class="fas fa-check-circle"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class='columns'>
+    <div class='center'>
+        <div class='form_container'>
+            <p>Click here to start Spotify playback:</p>
+            <br>
+            <button type="submit" class="submit" onclick="document.location.href=this.getAttribute('href');" href="/color_sync/spotify">
+                <i class="fas fa-music"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        var height = $('body').height() - $('#nav_bar').height();
+        $('.columns').css('height', height);
+    });
+</script>
+{% endblock %}
